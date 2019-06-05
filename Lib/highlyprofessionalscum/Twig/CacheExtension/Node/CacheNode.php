@@ -1,7 +1,7 @@
 <?php
 
 
-namespace highlyprofessionalscum\Twig\CacheExtension;
+namespace highlyprofessionalscum\Twig\CacheExtension\Node;
 
 use Twig\Node\Node;
 use Twig\Compiler;
@@ -23,33 +23,29 @@ class CacheNode extends Node
     {
         $i = self::$cacheCount++;
 
-        if (version_compare(Environment::VERSION, '1.26.0', '>=')) {
-            $extension = 'Asm89\Twig\CacheExtension\Extension';
-        } else {
-            $extension = 'asm89_cache';
-        }
+        $extension = 'highlyprofessionalscum\Twig\CacheExtension\Extension';
 
         $compiler
             ->addDebugInfo($this)
-            ->write("\$asm89CacheStrategy".$i." = \$this->env->getExtension('{$extension}')->getCacheStrategy();\n")
-            ->write("\$asm89Key".$i." = \$asm89CacheStrategy".$i."->generateKey(")
+            ->write("\$highlyprofessionalscumCacheStrategy".$i." = \$this->env->getExtension('{$extension}')->getCacheStrategy();\n")
+            ->write("\$highlyprofessionalscumKey".$i." = \$highlyprofessionalscumCacheStrategy".$i."->generateKey(")
             ->subcompile($this->getNode('annotation'))
             ->raw(", ")
             ->subcompile($this->getNode('key_info'))
             ->write(");\n")
-            ->write("\$asm89CacheBody".$i." = \$asm89CacheStrategy".$i."->fetchBlock(\$asm89Key".$i.");\n")
-            ->write("if (\$asm89CacheBody".$i." === false) {\n")
+            ->write("\$highlyprofessionalscumCacheBody".$i." = \$highlyprofessionalscumCacheStrategy".$i."->fetchBlock(\$highlyprofessionalscumKey".$i.");\n")
+            ->write("if (\$highlyprofessionalscumCacheBody".$i." === false) {\n")
             ->indent()
             ->write("ob_start();\n")
             ->indent()
             ->subcompile($this->getNode('body'))
             ->outdent()
             ->write("\n")
-            ->write("\$asm89CacheBody".$i." = ob_get_clean();\n")
-            ->write("\$asm89CacheStrategy".$i."->saveBlock(\$asm89Key".$i.", \$asm89CacheBody".$i.");\n")
+            ->write("\$highlyprofessionalscumCacheBody".$i." = ob_get_clean();\n")
+            ->write("\$highlyprofessionalscumCacheStrategy".$i."->saveBlock(\$highlyprofessionalscumKey".$i.", \$highlyprofessionalscumCacheBody".$i.");\n")
             ->outdent()
             ->write("}\n")
-            ->write("echo \$asm89CacheBody".$i.";\n")
+            ->write("echo \$highlyprofessionalscumCacheBody".$i.";\n")
         ;
     }
 }

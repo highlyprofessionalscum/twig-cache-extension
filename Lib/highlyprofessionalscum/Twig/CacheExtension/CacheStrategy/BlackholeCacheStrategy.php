@@ -1,6 +1,6 @@
 <?php
 
-namespace highlyprofessionalscum\Twig\CacheExtension;
+namespace highlyprofessionalscum\Twig\CacheExtension\CacheStrategy;
 
 
 use highlyprofessionalscum\Twig\CacheExtension\CacheStrategyInterface;

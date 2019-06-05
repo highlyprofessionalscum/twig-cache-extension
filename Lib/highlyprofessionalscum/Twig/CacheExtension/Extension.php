@@ -7,18 +7,37 @@ use Twig\TwigFilter;
 
 class AppExtension extends AbstractExtension
 {
-    public function getFilters()
+
+    private $cacheStrategy;
+
+    /**
+     * @param CacheStrategyInterface $cacheStrategy
+     */
+    public function __construct(CacheStrategyInterface $cacheStrategy)
+    {
+        $this->cacheStrategy = $cacheStrategy;
+    }
+    /**
+     * @return CacheStrategyInterface
+     */
+    public function getCacheStrategy()
+    {
+        return $this->cacheStrategy;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    public function getName()
+    {
+        return get_class($this);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    public function getTokenParsers()
     {
         return [
-            new TwigFilter('price', [$this, 'formatPrice']),
+            new TokenParser\Cache(),
         ];
-    }
-
-    public function formatPrice($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',')
-    {
-        $price = number_format($number, $decimals, $decPoint, $thousandsSep);
-        $price = '$' . $price;
-
-        return $price;
     }
 }
