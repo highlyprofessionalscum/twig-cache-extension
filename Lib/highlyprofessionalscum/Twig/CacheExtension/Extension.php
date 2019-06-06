@@ -5,7 +5,7 @@ namespace highlyprofessionalscum\Twig\CacheExtension;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-class AppExtension extends AbstractExtension
+class Extension extends AbstractExtension
 {
 
     private $cacheStrategy;
