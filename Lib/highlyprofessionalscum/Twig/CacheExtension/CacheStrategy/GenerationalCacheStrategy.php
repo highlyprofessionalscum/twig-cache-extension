@@ -51,7 +51,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function generateKey($annotation, $value)
+    public function generateKey($annotation, $value): string
     {
         $key = $this->keyGenerator->generateKey($value);
 
@@ -65,7 +65,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block)
+    public function saveBlock($key, $block):bool
     {
         return $this->cache->save($key, $block, $this->lifetime);
     }

@@ -41,7 +41,7 @@ class PsrCacheAdapter implements CacheProviderInterface
      * @param int|\DateInterval $lifetime
      * @return bool
      */
-    public function save($key, $value, $lifetime = 0)
+    public function save($key, $value, $lifetime = 0) : bool
     {
         $item = $this->cache->getItem($key);
         $item->set($value);

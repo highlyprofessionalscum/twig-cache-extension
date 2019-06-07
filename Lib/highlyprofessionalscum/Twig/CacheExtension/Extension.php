@@ -20,14 +20,14 @@ class Extension extends AbstractExtension
     /**
      * @return CacheStrategyInterface
      */
-    public function getCacheStrategy()
+    public function getCacheStrategy() : CacheStrategyInterface
     {
         return $this->cacheStrategy;
     }
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return get_class($this);
     }

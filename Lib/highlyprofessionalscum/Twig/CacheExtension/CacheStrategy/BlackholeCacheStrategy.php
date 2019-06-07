@@ -8,19 +8,20 @@ use highlyprofessionalscum\Twig\CacheExtension\CacheStrategyInterface;
 class BlackholeCacheStrategy implements CacheStrategyInterface
 {
 
-    public function fetchBlock($key)
+    public function fetchBlock($key) : bool
     {
         return false;
     }
 
 
-    public function generateKey($annotation, $value)
+    public function generateKey($annotation, $value) : string
     {
-        return microtime(true) . mt_rand();
+        return (string) microtime(true) . mt_rand();
     }
 
 
-    public function saveBlock($key, $block)
+    public function saveBlock($key, $block) : bool
     {
+        return false;
     }
 }

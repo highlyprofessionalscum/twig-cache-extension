@@ -14,7 +14,7 @@ class Cache extends AbstractTokenParser
      *
      * @return boolean
      */
-    public function decideCacheEnd(Token $token)
+    public function decideCacheEnd(Token $token) : bool
     {
         return $token->test('endcache');
     }
@@ -22,7 +22,7 @@ class Cache extends AbstractTokenParser
     /**
      * {@inheritDoc}
      */
-    public function getTag()
+    public function getTag() : string
     {
         return 'cache';
     }
@@ -30,7 +30,7 @@ class Cache extends AbstractTokenParser
     /**
      * {@inheritDoc}
      */
-    public function parse(Token $token)
+    public function parse(Token $token): CacheNode
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();

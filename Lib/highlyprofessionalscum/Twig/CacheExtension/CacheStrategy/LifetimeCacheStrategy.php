@@ -28,7 +28,7 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function generateKey($annotation, $value)
+    public function generateKey($annotation, $value) : array
     {
         if (!is_numeric($value)) {
             throw new InvalidCacheLifetimeException($value);
@@ -43,7 +43,7 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block)
+    public function saveBlock($key, $block): bool
     {
         return $this->cache->save($key['key'], $block, $key['lifetime']);
     }

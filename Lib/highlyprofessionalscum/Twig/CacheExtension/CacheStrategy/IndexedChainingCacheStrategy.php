@@ -33,7 +33,7 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function generateKey($annotation, $value)
+    public function generateKey($annotation, $value): array
     {
         if (!is_array($value) || null === $strategyKey = key($value)) {
             throw new NonExistingStrategyKeyException();
@@ -52,7 +52,7 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block)
+    public function saveBlock($key, $block) : bool
     {
         return $this->strategies[$key['strategyKey']]->saveBlock($key['key'], $block);
     }
