@@ -1,0 +1,59 @@
+<?php
+
+
+namespace Asm89\Twig\CacheExtension\CacheStrategy;
+
+use highlyprofessionalscum\Twig\CacheExtension\CacheStrategyInterface;
+use Asm89\Twig\CacheExtension\Exception\NonExistingStrategyException;
+use Asm89\Twig\CacheExtension\Exception\NonExistingStrategyKeyException;
+
+class IndexedChainingCacheStrategy implements CacheStrategyInterface
+{
+    /**
+     * @var CacheStrategyInterface[]
+     */
+    private $strategies;
+
+    /**
+     * @param array $strategies
+     */
+    public function __construct(array $strategies)
+    {
+        $this->strategies = $strategies;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function fetchBlock($key)
+    {
+        return $this->strategies[$key['strategyKey']]->fetchBlock($key['key']);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generateKey($annotation, $value)
+    {
+        if (!is_array($value) || null === $strategyKey = key($value)) {
+            throw new NonExistingStrategyKeyException();
+        }
+
+        if (!isset($this->strategies[$strategyKey])) {
+            throw new NonExistingStrategyException($strategyKey);
+        }
+
+        return array(
+            'strategyKey' => $strategyKey,
+            'key'         => $this->strategies[$strategyKey]->generateKey($annotation, current($value)),
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function saveBlock($key, $block)
+    {
+        return $this->strategies[$key['strategyKey']]->saveBlock($key['key'], $block);
+    }
+}
