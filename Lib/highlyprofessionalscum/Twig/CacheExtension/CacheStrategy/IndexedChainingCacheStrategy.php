@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Asm89\Twig\CacheExtension\CacheStrategy;
+namespace highlyprofessionalscum\Twig\CacheExtension\CacheStrategy;
 
 use highlyprofessionalscum\Twig\CacheExtension\CacheStrategyInterface;
 use highlyprofessionalscum\Twig\CacheExtension\Exception\NonExistingStrategyException;
