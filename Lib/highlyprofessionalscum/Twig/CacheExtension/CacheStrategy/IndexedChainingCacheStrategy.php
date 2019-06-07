@@ -4,8 +4,8 @@
 namespace Asm89\Twig\CacheExtension\CacheStrategy;
 
 use highlyprofessionalscum\Twig\CacheExtension\CacheStrategyInterface;
-use Asm89\Twig\CacheExtension\Exception\NonExistingStrategyException;
-use Asm89\Twig\CacheExtension\Exception\NonExistingStrategyKeyException;
+use highlyprofessionalscum\Twig\CacheExtension\Exception\NonExistingStrategyException;
+use highlyprofessionalscum\Twig\CacheExtension\Exception\NonExistingStrategyKeyException;
 
 class IndexedChainingCacheStrategy implements CacheStrategyInterface
 {
