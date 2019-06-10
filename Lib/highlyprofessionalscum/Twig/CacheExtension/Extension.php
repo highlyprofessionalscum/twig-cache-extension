@@ -3,7 +3,6 @@
 namespace highlyprofessionalscum\Twig\CacheExtension;
 
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 
 class Extension extends AbstractExtension
 {

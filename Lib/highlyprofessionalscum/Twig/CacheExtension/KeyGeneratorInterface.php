@@ -10,6 +10,6 @@ interface KeyGeneratorInterface
 *
 * @return string
 */
-public function generateKey($value);
+public function generateKey($value): string;
 
 }
