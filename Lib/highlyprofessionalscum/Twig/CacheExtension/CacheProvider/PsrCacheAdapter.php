@@ -4,6 +4,7 @@ namespace highlyprofessionalscum\Twig\CacheExtension\CacheProvider;
 
 use highlyprofessionalscum\Twig\CacheExtension\CacheProviderInterface;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Cache\InvalidArgumentException;
 
 class PsrCacheAdapter implements CacheProviderInterface
 {
@@ -20,19 +21,20 @@ class PsrCacheAdapter implements CacheProviderInterface
     {
         $this->cache = $cache;
     }
+
+
     /**
      * @param string $key
      * @return mixed|false
      */
-    public function fetch($key)
+    public function fetch($key) : ?string
     {
-        // PSR-6 implementation returns null, CacheProviderInterface expects false
         $item = $this->cache->getItem($key);
         if ($item->isHit()) {
             return $item->get();
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -40,6 +42,8 @@ class PsrCacheAdapter implements CacheProviderInterface
      * @param string $value
      * @param int|\DateInterval $lifetime
      * @return bool
+     * @throws InvalidArgumentException
+     *
      */
     public function save($key, $value, $lifetime = 0) : bool
     {

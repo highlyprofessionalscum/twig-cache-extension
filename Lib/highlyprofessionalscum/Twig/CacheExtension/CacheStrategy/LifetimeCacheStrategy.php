@@ -9,6 +9,9 @@ use highlyprofessionalscum\Twig\CacheExtension\Exception\InvalidCacheLifetimeExc
 
 class LifetimeCacheStrategy implements CacheStrategyInterface
 {
+    /**
+     * @var CacheProviderInterface
+     */
     private $cache;
 
 
@@ -20,7 +23,7 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchBlock($key)
+    public function fetchBlock($key): ?string
     {
         return $this->cache->fetch($key['key']);
     }

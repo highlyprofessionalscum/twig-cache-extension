@@ -11,7 +11,7 @@ interface CacheProviderInterface
      *
      * @return mixed False, if there was no value to be fetched. Null or a string otherwise.
      */
-    public function fetch($key);
+    public function fetch($key): ?string;
     /**
      * @param string  $key
      * @param string  $value
@@ -19,5 +19,5 @@ interface CacheProviderInterface
      *
      * @return boolean
      */
-    public function save($key, $value, $lifetime = 0);
+    public function save($key, $value, $lifetime = 0): bool;
 }

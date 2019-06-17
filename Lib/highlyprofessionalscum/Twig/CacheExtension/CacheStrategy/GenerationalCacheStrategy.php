@@ -24,8 +24,19 @@ use highlyprofessionalscum\Twig\CacheExtension\KeyGeneratorInterface;
  */
 class GenerationalCacheStrategy implements CacheStrategyInterface
 {
+    /**
+     * @var KeyGeneratorInterface
+     */
     private $keyGenerator;
+
+    /**
+     * @var CacheProviderInterface
+     */
     private $cache;
+
+    /**
+     * @var int
+     */
     private $lifetime;
 
     /**
@@ -33,7 +44,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
      * @param KeyGeneratorInterface  $keyGenerator
      * @param integer                $lifetime
      */
-    public function __construct(CacheProviderInterface $cache, KeyGeneratorInterface $keyGenerator, $lifetime = 0)
+    public function __construct(CacheProviderInterface $cache, KeyGeneratorInterface $keyGenerator, int $lifetime = 0)
     {
         $this->keyGenerator = $keyGenerator;
         $this->cache        = $cache;
@@ -43,7 +54,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchBlock($key)
+    public function fetchBlock($key): ?string
     {
         return $this->cache->fetch($key);
     }
@@ -51,7 +62,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function generateKey($annotation, $value): string
+    public function generateKey($annotation, $value): array
     {
         $key = $this->keyGenerator->generateKey($value);
 
@@ -65,7 +76,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block):bool
+    public function saveBlock($key, $block): bool
     {
         return $this->cache->save($key, $block, $this->lifetime);
     }

@@ -8,9 +8,9 @@ use highlyprofessionalscum\Twig\CacheExtension\CacheStrategyInterface;
 class BlackholeCacheStrategy implements CacheStrategyInterface
 {
 
-    public function fetchBlock($key) : bool
+    public function fetchBlock($key): ?string
     {
-        return false;
+        return null;
     }
 
 

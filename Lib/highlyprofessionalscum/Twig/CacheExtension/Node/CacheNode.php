@@ -34,7 +34,7 @@ class CacheNode extends Node
             ->subcompile($this->getNode('key_info'))
             ->write(");\n")
             ->write("\$highlyprofessionalscumCacheBody".$i." = \$highlyprofessionalscumCacheStrategy".$i."->fetchBlock(\$highlyprofessionalscumKey".$i.");\n")
-            ->write("if (\$highlyprofessionalscumCacheBody".$i." === false) {\n")
+            ->write("if (\$highlyprofessionalscumCacheBody".$i." === null) {\n")
             ->indent()
             ->write("ob_start();\n")
             ->indent()
