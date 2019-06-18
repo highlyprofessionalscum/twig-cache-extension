@@ -26,26 +26,23 @@ class PsrCacheAdapter implements CacheProviderInterface
     /**
      * @param string $key
      * @return mixed|false
+     * @throws InvalidArgumentException
      */
     public function fetch($key) : ?string
     {
         $item = $this->cache->getItem($key);
-        if ($item->isHit()) {
-            return $item->get();
-        }
 
-        return null;
+        return  $item->isHit() ? $item->get() : null;
     }
 
     /**
      * @param string $key
      * @param string $value
-     * @param int|\DateInterval $lifetime
+     * @param int|\DateInterval|null $lifetime
      * @return bool
      * @throws InvalidArgumentException
-     *
      */
-    public function save($key, $value, $lifetime = 0) : bool
+    public function save($key, $value, $lifetime = null) : bool
     {
         $item = $this->cache->getItem($key);
         $item->set($value);
