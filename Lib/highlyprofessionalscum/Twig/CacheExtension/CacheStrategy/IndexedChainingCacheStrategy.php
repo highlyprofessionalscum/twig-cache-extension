@@ -39,7 +39,7 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
             throw new NonExistingStrategyKeyException();
         }
 
-        if (!isset($this->strategies[$strategyKey])) {
+        if (!array_key_exists($strategyKey, $this->strategies)) {
             throw new NonExistingStrategyException($strategyKey);
         }
 
