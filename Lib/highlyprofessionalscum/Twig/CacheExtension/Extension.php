@@ -16,6 +16,8 @@ class Extension extends AbstractExtension
     {
         $this->cacheStrategy = $cacheStrategy;
     }
+
+
     /**
      * @return CacheStrategyInterface
      */
@@ -23,6 +25,8 @@ class Extension extends AbstractExtension
     {
         return $this->cacheStrategy;
     }
+
+
     /**
      * {@inheritDoc}
      */
@@ -30,10 +34,12 @@ class Extension extends AbstractExtension
     {
         return get_class($this);
     }
+
+
     /**
      * {@inheritDoc}
      */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new TokenParser\Cache(),
