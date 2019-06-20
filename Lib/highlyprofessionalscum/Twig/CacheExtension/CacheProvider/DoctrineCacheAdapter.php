@@ -3,21 +3,20 @@
 namespace highlyprofessionalscum\Twig\CacheExtension\CacheProvider;
 
 use highlyprofessionalscum\Twig\CacheExtension\CacheProviderInterface;
-use Psr\Cache\CacheItemPoolInterface;
-use Psr\Cache\InvalidArgumentException;
+use Doctrine\Common\Cache\Cache;
 
 class DoctrineCacheAdapter implements CacheProviderInterface
 {
 
     /**
-     * @var CacheItemPoolInterface
+     * @var Cache
      */
     private $cache;
 
     /**
-     * @param CacheItemPoolInterface $cache
+     * @param Cache $cache
      */
-    public function __construct(CacheItemPoolInterface $cache)
+    public function __construct(Cache $cache)
     {
         $this->cache = $cache;
     }
