@@ -15,11 +15,23 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
     private $strategies;
 
     /**
-     * @param array $strategies
+     * @var int
      */
-    public function __construct(array $strategies)
+    private $ttl;
+
+    /**
+     * @var string
+     */
+    private $strategyKey;
+
+    /**
+     * @param array $strategies
+     * @param int $ttl
+     */
+    public function __construct(array $strategies, int $ttl)
     {
         $this->strategies = $strategies;
+        $this->ttl = $ttl;
     }
 
     /**
@@ -33,7 +45,7 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function generateKey($annotation, $value): array
+    public function generateKey($annotation, $value): string
     {
         if (!is_array($value) || null === $strategyKey = key($value)) {
             throw new NonExistingStrategyKeyException();
@@ -43,17 +55,16 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
             throw new NonExistingStrategyException($strategyKey);
         }
 
-        return array(
-            'strategyKey' => $strategyKey,
-            'key'         => $this->strategies[$strategyKey]->generateKey($annotation, current($value)),
-        );
+        $this->strategyKey = $strategyKey;
+
+        return $this->strategies[$strategyKey]->generateKey($annotation, current($value));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block) : bool
+    public function saveBlock($key, $block, $ttl = null ) : bool
     {
-        return $this->strategies[$key['strategyKey']]->saveBlock($key['key'], $block);
+        return $this->strategies[$this->strategyKey]->saveBlock($key, $block, $this->ttl);
     }
 }

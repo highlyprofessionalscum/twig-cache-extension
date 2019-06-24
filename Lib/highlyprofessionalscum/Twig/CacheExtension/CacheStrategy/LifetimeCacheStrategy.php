@@ -14,10 +14,16 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
      */
     private $cache;
 
+    /**
+     * @var int
+     */
+    private $ttl;
 
-    public function __construct(CacheProviderInterface $cache)
+
+    public function __construct(CacheProviderInterface $cache, int $ttl)
     {
         $this->cache = $cache;
+        $this->ttl   = $ttl;
     }
 
     /**
@@ -31,23 +37,22 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function generateKey($annotation, $value) : array
+    public function generateKey($annotation, $value) : string
     {
         if (!is_numeric($value)) {
             throw new InvalidCacheLifetimeException($value);
         }
 
-        return array(
-            'lifetime' => $value,
-            'key'      => '__LCS__' . $annotation,
-        );
+        $this->ttl = $value;
+
+        return '__LCS__' . $annotation;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block): bool
+    public function saveBlock($key, $block, $ttl = null): bool
     {
-        return $this->cache->save($key['key'], $block, $key['lifetime']);
+        return $this->cache->save($key['key'], $block, $ttl ?? $this->ttl);
     }
 }

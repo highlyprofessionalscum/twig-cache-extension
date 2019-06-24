@@ -36,18 +36,18 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * @var int
      */
-    private $lifetime;
+    private $ttl;
 
     /**
      * @param CacheProviderInterface $cache
      * @param KeyGeneratorInterface  $keyGenerator
      * @param integer                $lifetime
      */
-    public function __construct(CacheProviderInterface $cache, KeyGeneratorInterface $keyGenerator, int $lifetime = 0)
+    public function __construct(CacheProviderInterface $cache, KeyGeneratorInterface $keyGenerator, int $ttl)
     {
         $this->keyGenerator = $keyGenerator;
         $this->cache        = $cache;
-        $this->lifetime     = $lifetime;
+        $this->ttl          = $ttl;
     }
 
     /**
@@ -61,7 +61,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function generateKey($annotation, $value): array
+    public function generateKey($annotation, $value): string
     {
         $key = $this->keyGenerator->generateKey($value);
 
@@ -75,8 +75,9 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block): bool
+    public function saveBlock($key, $block, $ttl = null): bool
     {
-        return $this->cache->save($key, $block, $this->lifetime);
+        return $this->cache->save($key, $block, $ttl ?? $this->ttl);
     }
+
 }

@@ -20,7 +20,7 @@ class BlackholeCacheStrategy implements CacheStrategyInterface
     }
 
 
-    public function saveBlock($key, $block) : bool
+    public function saveBlock($key, $block, $ttl = null) : bool
     {
         return false;
     }
