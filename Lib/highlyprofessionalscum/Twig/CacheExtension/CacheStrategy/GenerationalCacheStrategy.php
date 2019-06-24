@@ -20,7 +20,6 @@ use highlyprofessionalscum\Twig\CacheExtension\KeyGeneratorInterface;
  *
  * @see http://37signals.com/svn/posts/3113-how-key-based-cache-expiration-works
  *
- * @author Alexander <iam.asm89@gmail.com>
  */
 class GenerationalCacheStrategy implements CacheStrategyInterface
 {
