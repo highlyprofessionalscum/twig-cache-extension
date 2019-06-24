@@ -9,8 +9,8 @@ interface CacheStrategyInterface
     public function fetchBlock($key): ?string;
 
 
-    public function generateKey($annotation, $value);
+    public function generateKey($annotation, $value): string;
 
 
-    public function saveBlock($key, $block): bool;
+    public function saveBlock($key, $block, $ttl = null): bool;
 }
