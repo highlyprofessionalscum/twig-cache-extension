@@ -37,7 +37,7 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchBlock($key): ?string
+    public function fetchBlock(string $key): ?string
     {
         return $this->strategies[$this->strategyKey]->fetchBlock($key);
     }

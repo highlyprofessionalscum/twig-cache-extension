@@ -8,7 +8,7 @@ use highlyprofessionalscum\Twig\CacheExtension\CacheStrategyInterface;
 class BlackholeCacheStrategy implements CacheStrategyInterface
 {
 
-    public function fetchBlock($key): ?string
+    public function fetchBlock(string $key): ?string
     {
         return null;
     }
@@ -20,7 +20,7 @@ class BlackholeCacheStrategy implements CacheStrategyInterface
     }
 
 
-    public function saveBlock($key, $block, $ttl = null) : bool
+    public function saveBlock(string $key,string $block, ?int $ttl = null) : bool
     {
         return false;
     }

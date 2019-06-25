@@ -6,11 +6,11 @@ namespace highlyprofessionalscum\Twig\CacheExtension;
 interface CacheStrategyInterface
 {
 
-    public function fetchBlock($key): ?string;
+    public function fetchBlock(string $key): ?string;
 
 
     public function generateKey($annotation, $value): string;
 
 
-    public function saveBlock($key, $block, $ttl = null): bool;
+    public function saveBlock(string $key, string $block, ?int $ttl = null): bool;
 }

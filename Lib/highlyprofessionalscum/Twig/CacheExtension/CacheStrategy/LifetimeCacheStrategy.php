@@ -29,9 +29,9 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchBlock($key): ?string
+    public function fetchBlock(string $key): ?string
     {
-        return $this->cache->fetch($key['key']);
+        return $this->cache->fetch($key);
     }
 
     /**
@@ -51,8 +51,8 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block, $ttl = null): bool
+    public function saveBlock(string $key, string $block, ?int $ttl = null): bool
     {
-        return $this->cache->save($key['key'], $block, $ttl ?? $this->ttl);
+        return $this->cache->save($key, $block, $ttl ?? $this->ttl);
     }
 }

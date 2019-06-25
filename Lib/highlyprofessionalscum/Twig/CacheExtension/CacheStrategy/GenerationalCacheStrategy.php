@@ -53,7 +53,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchBlock($key): ?string
+    public function fetchBlock(string $key): ?string
     {
         return $this->cache->fetch($key);
     }
