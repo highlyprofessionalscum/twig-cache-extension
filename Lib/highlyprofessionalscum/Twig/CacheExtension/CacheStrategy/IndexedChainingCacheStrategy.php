@@ -39,7 +39,7 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
      */
     public function fetchBlock($key): ?string
     {
-        return $this->strategies[$key['strategyKey']]->fetchBlock($key['key']);
+        return $this->strategies[$this->strategyKey]->fetchBlock($key);
     }
 
     /**
@@ -65,6 +65,6 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
      */
     public function saveBlock($key, $block, $ttl = null ) : bool
     {
-        return $this->strategies[$this->strategyKey]->saveBlock($key, $block, $this->ttl);
+        return $this->strategies[$this->strategyKey]->saveBlock($key, $block, $ttl ?? $this->ttl);
     }
 }
