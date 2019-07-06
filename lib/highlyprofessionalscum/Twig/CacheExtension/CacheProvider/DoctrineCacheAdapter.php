@@ -25,7 +25,7 @@ class DoctrineCacheAdapter implements CacheProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function fetch($key): string
+    public function fetch(string $key): string
     {
         return $this->cache->fetch($key);
     }
@@ -34,7 +34,7 @@ class DoctrineCacheAdapter implements CacheProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function save($key, $value, $lifetime = 0): bool
+    public function save(string $key, string  $value, ?int $lifetime = 0): bool
     {
         return $this->cache->save($key, $value, $lifetime);
     }

@@ -3,19 +3,19 @@
 namespace highlyprofessionalscum\Twig\CacheExtension\CacheProvider;
 
 use highlyprofessionalscum\Twig\CacheExtension\CacheProviderInterface;
-use Symfony\Contracts\Cache;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class SymfonyCacheAdapter implements CacheProviderInterface
 {
     /**
-     * @var Cache
+     * @var CacheInterface
      */
     private $cache;
 
     /**
-     * @param Cache $cache
+     * @param CacheInterface $cache
      */
-    public function __construct(Cache $cache)
+    public function __construct(CacheInterface $cache)
     {
         $this->cache = $cache;
     }
@@ -24,7 +24,7 @@ class SymfonyCacheAdapter implements CacheProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function fetch($key): string
+    public function fetch(string $key): string
     {
         $item = $this->cache->getItem($key);
 
@@ -35,7 +35,7 @@ class SymfonyCacheAdapter implements CacheProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function save($key, $value, $lifetime = 0): bool
+    public function save(string $key, string  $value, ?int $lifetime = 0): bool
     {
         return $this->cache->save($key, $value, $lifetime);
     }

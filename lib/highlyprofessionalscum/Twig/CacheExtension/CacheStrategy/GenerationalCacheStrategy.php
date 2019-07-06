@@ -75,7 +75,7 @@ class GenerationalCacheStrategy implements CacheStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function saveBlock($key, $block, $ttl = null): bool
+    public function saveBlock(string $key, string $block, ?int $ttl = null ) : bool
     {
         return $this->cache->save($key, $block, $ttl ?? $this->ttl);
     }

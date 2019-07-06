@@ -28,7 +28,7 @@ class PsrCacheAdapter implements CacheProviderInterface
      * @return mixed|false
      * @throws InvalidArgumentException
      */
-    public function fetch($key) : ?string
+    public function fetch(string $key) : ?string
     {
         $item = $this->cache->getItem($key);
 
@@ -42,7 +42,7 @@ class PsrCacheAdapter implements CacheProviderInterface
      * @return bool
      * @throws InvalidArgumentException
      */
-    public function save($key, $value, $lifetime = null) : bool
+    public function save(string $key, string  $value, ?int $lifetime = 0): bool
     {
         $item = $this->cache->getItem($key);
         $item->set($value);
