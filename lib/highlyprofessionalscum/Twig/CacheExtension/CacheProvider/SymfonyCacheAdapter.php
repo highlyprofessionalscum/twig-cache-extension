@@ -3,21 +3,27 @@
 namespace highlyprofessionalscum\Twig\CacheExtension\CacheProvider;
 
 use highlyprofessionalscum\Twig\CacheExtension\CacheProviderInterface;
-use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 class SymfonyCacheAdapter implements CacheProviderInterface
 {
     /**
-     * @var CacheInterface
+     * @var AdapterInterface
      */
     private $cache;
 
     /**
-     * @param CacheInterface $cache
+     * @var \DateTime
      */
-    public function __construct(CacheInterface $cache)
+    private $lifetime;
+
+    /**
+     * @param AdapterInterface $cache
+     */
+    public function __construct(AdapterInterface $cache)
     {
         $this->cache = $cache;
+        $this->lifetime = new \DateTime();
     }
 
 
@@ -37,6 +43,16 @@ class SymfonyCacheAdapter implements CacheProviderInterface
      */
     public function save(string $key, string  $value, ?int $lifetime = 0): bool
     {
-        return $this->cache->save($key, $value, $lifetime);
+        $item = $this->cache->getItem($key);
+
+
+        if (null !== $lifetime)
+            $lifetime = $this->lifetime->setTimestamp(time() + $lifetime);
+
+        $item->set($value)
+            ->expiresAt($lifetime)
+        ;
+
+        return $this->cache->save($item);
     }
 }
