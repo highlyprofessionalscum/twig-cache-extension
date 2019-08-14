@@ -9,16 +9,9 @@ use highlyprofessionalscum\Twig\CacheExtension\Exception\InvalidCacheLifetimeExc
 
 class LifetimeCacheStrategy implements CacheStrategyInterface
 {
-    /**
-     * @var CacheProviderInterface
-     */
+
     private $cache;
-
-    /**
-     * @var int
-     */
     private $ttl;
-
 
     public function __construct(CacheProviderInterface $cache, int $ttl)
     {
@@ -26,17 +19,13 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
         $this->ttl   = $ttl;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function fetchBlock(string $key): ?string
     {
         return $this->cache->fetch($key);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function generateKey($annotation, $value) : string
     {
         if (!is_numeric($value)) {
@@ -48,9 +37,7 @@ class LifetimeCacheStrategy implements CacheStrategyInterface
         return '__LCS__' . $annotation;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function saveBlock(string $key, string $block, ?int $ttl = null): bool
     {
         return $this->cache->save($key, $block, $ttl ?? $this->ttl);

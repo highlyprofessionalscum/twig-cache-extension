@@ -9,42 +9,25 @@ use highlyprofessionalscum\Twig\CacheExtension\Exception\NonExistingStrategyKeyE
 
 class IndexedChainingCacheStrategy implements CacheStrategyInterface
 {
-    /**
-     * @var CacheStrategyInterface[]
-     */
+    
     private $strategies;
-
-    /**
-     * @var int
-     */
     private $ttl;
-
-    /**
-     * @var string
-     */
     private $strategyKey;
 
-    /**
-     * @param array $strategies
-     * @param int $ttl
-     */
+
     public function __construct(array $strategies, int $ttl)
     {
         $this->strategies = $strategies;
         $this->ttl = $ttl;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function fetchBlock(string $key): ?string
     {
         return $this->strategies[$this->strategyKey]->fetchBlock($key);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function generateKey($annotation, $value): string
     {
         if (!is_array($value) || null === $strategyKey = key($value)) {
@@ -60,9 +43,7 @@ class IndexedChainingCacheStrategy implements CacheStrategyInterface
         return $this->strategies[$strategyKey]->generateKey($annotation, current($value));
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function saveBlock(string $key, string $block, ?int $ttl = null ) : bool
     {
         return $this->strategies[$this->strategyKey]->saveBlock($key, $block, $ttl ?? $this->ttl);

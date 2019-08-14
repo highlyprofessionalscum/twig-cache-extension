@@ -9,27 +9,18 @@ use highlyprofessionalscum\Twig\CacheExtension\Node\CacheNode;
 
 class Cache extends AbstractTokenParser
 {
-    /**
-     * @param \Twig_Token $token
-     *
-     * @return boolean
-     */
     public function decideCacheEnd(Token $token) : bool
     {
         return $token->test('endcache');
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function getTag() : string
     {
         return 'cache';
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function parse(Token $token): CacheNode
     {
         $lineno = $token->getLine();

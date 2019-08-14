@@ -9,12 +9,7 @@ use highlyprofessionalscum\Twig\CacheExtension\KeyGeneratorInterface;
  */
 class SplObjectHashKeyGenerator implements KeyGeneratorInterface
 {
-    /**
-     * Generate a cache key for a given value.
-     *
-     * @param mixed $value cached value
-     * @return string
-     */
+
     public function generateKey($value) : string
     {
         if (!is_object($value)) {
